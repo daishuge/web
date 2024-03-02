@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>戴家大院</title>
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+<style>
+    .title {
+        background-color: rgb(13, 179, 234);
+        color: white; /* 设置文字颜色为白色以确保可读性 */
+    }
+
+    .text {
+        font-family: Arial, sans-serif;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    @media (max-width: 400px) {
+        .text {
+            font-size: 5vw; /* 在小屏幕上使用更小的字体大小 */
+        }
+        .title{
+            font-size: 8vw;
+            text-align: center;
+        }
+    }
+
+    @media (min-width: 500px) {
+        .text {
+            font-size: 1.6vw; /* 在大屏幕上使用相对较大的字体大小 */
+        }
+        .title{
+            font-size: 2.5vw;
+            text-align: center;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <div class="title" >
+        欢迎来到<br>戴家大院
+    </div>
+    <div class="text">
+        <div class="center"><br>
+            daishuge.win<br>
+            袋鼠哥. 胜利
+        </div>
+        本站功能：<br>
+            1. <a href="http://www.daishuge.win/todayhomework">今日作业</a><br>
+            2. <del>打飞机</del><a href="http://www.daishuge.win/game"> 飞机大作战</a><br>
+    </div>
+</body>
+</html>

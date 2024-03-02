@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>飞机大作战</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* 防止滚动条出现 */
+        }
+        .circle {
+            width: 5vw; /* 屏幕宽度的5% */
+            height: 5vw; /* 高度与宽度相同，保持圆形 */
+            border-radius: 50%; /* 圆形 */
+            position: absolute; /* 使用绝对定位 */
+        }
+        #gameInstructions {
+            position: absolute;
+            top: 20px; /* 调整位置，避免太靠上 */
+            left: 20px;
+            font-size: 20px; /* 调小字体大小，适应屏幕 */
+            color: black;
+            background-color: rgba(240, 240, 240, 0.8); /* 半透明背景 */
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000; /* 确保在最前面 */
+        }
+        #gameLink {
+            position: absolute;
+            top: 160px; /* 根据说明文字和链接本身的大小调整 */
+            left: 20px;
+            font-size: 20px;
+            color: black;
+            background-color: rgba(240, 240, 240, 0.8); /* 半透明背景 */
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            z-index: 1000; /* 确保在最前面 */
+        }
+    </style>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+
+<div id="gameInstructions">
+    <a href="http://www.daishuge.win">←返回首页</a>
+    操作说明：<br>
+    1. [w] 前进<br>
+    2. 长按字母 B 查看你的“敌人”<br>
+    3. 空格键发射子弹（有爆炸效果，子弹能穿越屏幕）
+    4. [a/d] 转向
+</div>
+<a href="#" id="gameLink">点击这里玩游戏</a>
+
+<script>
+    // 生成随机颜色的函数
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // 生成并放置圆形的函数
+    function placeCircle() {
+        var circle = document.createElement('div');
+        circle.className = 'circle';
+        circle.style.backgroundColor = getRandomColor();
+        // 随机位置
+        circle.style.left = Math.random() * (window.innerWidth - circle.offsetWidth) + 'px';
+        circle.style.top = Math.random() * (window.innerHeight - circle.offsetHeight) + 'px';
+        
+        document.body.appendChild(circle);
+    }
+
+    // 确保屏幕上始终有10个圆形
+    function maintainCircles() {
+        var existingCircles = document.getElementsByClassName('circle').length;
+        var circlesToCreate = 10 - existingCircles;
+        
+        for (var i = 0; i < circlesToCreate; i++) {
+            placeCircle();
+        }
+    }
+
+    // 每次调整窗口大小时，重新调整圆形位置
+    window.onresize = function() {
+        var circles = document.getElementsByClassName('circle');
+        for (var i = 0; i < circles.length; i++) {
+            circles[i].style.left = Math.random() * (window.innerWidth - circles[i].offsetWidth) + 'px';
+            circles[i].style.top = Math.random() * (window.innerHeight - circles[i].offsetHeight) + 'px';
+        }
+    };
+
+    // 定期检查并维持圆形数量
+    setInterval(maintainCircles, 1);
+
+    // 添加游戏链接的点击事件，以动态加载游戏脚本
+    document.getElementById('gameLink').addEventListener('click', function(e) {
+        e.preventDefault(); // 防止链接跳转
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        document.body.appendChild(s);
+        s.src = 'https://docs.fuyeor.com/tool/Airplanes.js';
+    });
+</script>
+</body>
+</html>
